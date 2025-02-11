@@ -69,6 +69,65 @@
 					"response": []
 				},
 				{
+					"name": "Cria segundo quadro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"board_id2\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"API Trello 2\",\r\n    \"prefs_background\": \"blue\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/?key={{APIkey}}&token={{APItoken}}&prefs_background=green",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "prefs_background",
+									"value": "green",
+									"description": "muda a cor de fundo do quadro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Retorna quadros",
 					"request": {
 						"method": "GET",
@@ -99,6 +158,45 @@
 								{
 									"key": "token",
 									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna quadro por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}?key={{APIkey}}&token={{APItoken}}&fields=name,url",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name,url"
 								}
 							]
 						}
@@ -145,19 +243,26 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Listas",
-			"item": [
+				},
 				{
-					"name": "Cria lista",
+					"name": "Deleta quadro",
 					"request": {
-						"method": "POST",
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://api.trello.com/1/boards/67ab06e4b3bc74021f7a3589/lists?name=Pensando em fazer&key={{APIkey}}&token={{APItoken}}",
+							"raw": "https://api.trello.com/1/boards/{{board_id}}?key={{APIkey}}&token={{APItoken}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -167,13 +272,314 @@
 							"path": [
 								"1",
 								"boards",
-								"67ab06e4b3bc74021f7a3589",
+								"{{board_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listas",
+			"item": [
+				{
+					"name": "Cria lista",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"list_id\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pensando em fazer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}&idBoard={{board_id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
 								"lists"
 							],
 							"query": [
 								{
 									"key": "name",
-									"value": "Pensando em fazer"
+									"value": "Pensando em fazer",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{board_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria segunda lista",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"list_id2\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pensando\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Pensando em fazer",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna lista por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{list_id2}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{list_id2}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna listas",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}&fields=name",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Arquiva lista",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{list_id}}/closed?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{list_id}}",
+								"closed"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "Cria card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Primeiro card\",\r\n    \"desc\": \"Card de teste criado via API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards?idList={{list_id}}&key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{list_id}}"
 								},
 								{
 									"key": "key",
@@ -216,6 +622,18 @@
 	"variable": [
 		{
 			"key": "board_id",
+			"value": ""
+		},
+		{
+			"key": "board_id2",
+			"value": ""
+		},
+		{
+			"key": "list_id",
+			"value": ""
+		},
+		{
+			"key": "list_id2",
 			"value": ""
 		}
 	]
