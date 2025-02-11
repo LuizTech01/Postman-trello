@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7cddde93-84c3-4f88-85e1-4c62b03b3399",
+		"_postman_id": "4f1c049c-0739-4184-acd4-caab3b1a06f0",
 		"name": "Trello API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "41098157"
@@ -9,6 +9,65 @@
 		{
 			"name": "Quadro",
 			"item": [
+				{
+					"name": "Cria quadro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"board_id\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"API Trello\",\r\n    \"prefs_background\": \"red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/?key={{APIkey}}&token={{APItoken}}&prefs_background=green",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "prefs_background",
+									"value": "green",
+									"description": "muda a cor de fundo do quadro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Retorna quadros",
 					"request": {
@@ -47,13 +106,13 @@
 					"response": []
 				},
 				{
-					"name": "Muda plano de fundo",
+					"name": "Edita quadro",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{ \"name\": \"API Trello editado\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,7 +120,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://api.trello.com/1/boards/?name=d&key={{APIkey}}&token={{APItoken}}&prefs_background=green",
+							"raw": "https://api.trello.com/1/boards/{{board_id}}?key={{APIkey}}&token={{APItoken}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -71,48 +130,7 @@
 							"path": [
 								"1",
 								"boards",
-								""
-							],
-							"query": [
-								{
-									"key": "name",
-									"value": "d"
-								},
-								{
-									"key": "key",
-									"value": "{{APIkey}}"
-								},
-								{
-									"key": "token",
-									"value": "{{APItoken}}"
-								},
-								{
-									"key": "prefs_background",
-									"value": "green",
-									"description": "muda a cor de fundo do quadro"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Muda nome do board",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "https://api.trello.com/1/boards/67ab06e4b3bc74021f7a3589?key={{APIkey}}&token={{APItoken}}&name=e",
-							"protocol": "https",
-							"host": [
-								"api",
-								"trello",
-								"com"
-							],
-							"path": [
-								"1",
-								"boards",
-								"67ab06e4b3bc74021f7a3589"
+								"{{board_id}}"
 							],
 							"query": [
 								{
@@ -122,10 +140,6 @@
 								{
 									"key": "token",
 									"value": "{{APItoken}}"
-								},
-								{
-									"key": "name",
-									"value": "e"
 								}
 							]
 						}
@@ -138,7 +152,7 @@
 			"name": "Listas",
 			"item": [
 				{
-					"name": "Adiciona uma nova lista ao board",
+					"name": "Cria lista",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -197,6 +211,12 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "board_id",
+			"value": ""
 		}
 	]
 }
