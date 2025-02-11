@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "7cddde93-84c3-4f88-85e1-4c62b03b3399",
+		"name": "Trello API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41098157"
+	},
+	"item": [
+		{
+			"name": "Quadro",
+			"item": [
+				{
+					"name": "Retorna quadros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/members/me/boards?fields=name,url&key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"members",
+								"me",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "name,url"
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Muda plano de fundo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/?name=d&key={{APIkey}}&token={{APItoken}}&prefs_background=green",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "d"
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "prefs_background",
+									"value": "green",
+									"description": "muda a cor de fundo do quadro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Muda nome do board",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/67ab06e4b3bc74021f7a3589?key={{APIkey}}&token={{APItoken}}&name=e",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"67ab06e4b3bc74021f7a3589"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "name",
+									"value": "e"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listas",
+			"item": [
+				{
+					"name": "Adiciona uma nova lista ao board",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/67ab06e4b3bc74021f7a3589/lists?name=Pensando em fazer&key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"67ab06e4b3bc74021f7a3589",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Pensando em fazer"
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
