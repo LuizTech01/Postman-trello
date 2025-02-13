@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "4f1c049c-0739-4184-acd4-caab3b1a06f0",
 		"name": "Trello API",
+		"description": "Projeto criado para manipular e treinar o uso de API no trello.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "41098157"
 	},
@@ -133,7 +134,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.trello.com/1/members/me/boards?fields=name,url&key={{APIkey}}&token={{APItoken}}",
+							"raw": "https://api.trello.com/1/members/me/boards?key={{APIkey}}&token={{APItoken}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -149,7 +150,8 @@
 							"query": [
 								{
 									"key": "fields",
-									"value": "name,url"
+									"value": "name,url",
+									"disabled": true
 								},
 								{
 									"key": "key",
@@ -454,14 +456,26 @@
 				},
 				{
 					"name": "Retorna listas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}&fields=name",
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -485,7 +499,8 @@
 								},
 								{
 									"key": "fields",
-									"value": "name"
+									"value": "name",
+									"disabled": true
 								}
 							]
 						}
@@ -544,6 +559,19 @@
 			"item": [
 				{
 					"name": "Cria card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"card_id\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -581,6 +609,286 @@
 									"key": "idList",
 									"value": "{{list_id}}"
 								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria segundo card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"card_id2\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Segundo card\",\r\n    \"desc\": \"Segundo card de teste criado via API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards?idList={{list_id}}&key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{list_id}}"
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna cards",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/cards?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name,desc,dateLastActivity",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna card por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}&fields=name,desc,dateLastActivity",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name,desc,dateLastActivity"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idList\": \"67ad34d616b529b9df16a812\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edita card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Card editado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
 								{
 									"key": "key",
 									"value": "{{APIkey}}"
@@ -634,6 +942,14 @@
 		},
 		{
 			"key": "list_id2",
+			"value": ""
+		},
+		{
+			"key": "card_id2",
+			"value": ""
+		},
+		{
+			"key": "card_id",
 			"value": ""
 		}
 	]
