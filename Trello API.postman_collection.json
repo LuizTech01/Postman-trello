@@ -1,0 +1,956 @@
+{
+	"info": {
+		"_postman_id": "4f1c049c-0739-4184-acd4-caab3b1a06f0",
+		"name": "Trello API",
+		"description": "Projeto criado para manipular e treinar o uso de API no trello.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41098157"
+	},
+	"item": [
+		{
+			"name": "Quadro",
+			"item": [
+				{
+					"name": "Cria quadro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"board_id\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"API Trello\",\r\n    \"prefs_background\": \"red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/?key={{APIkey}}&token={{APItoken}}&prefs_background=green",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "prefs_background",
+									"value": "green",
+									"description": "muda a cor de fundo do quadro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria segundo quadro",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"board_id2\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"API Trello 2\",\r\n    \"prefs_background\": \"blue\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/?key={{APIkey}}&token={{APItoken}}&prefs_background=green",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								""
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "prefs_background",
+									"value": "green",
+									"description": "muda a cor de fundo do quadro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna quadros",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/members/me/boards?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"members",
+								"me",
+								"boards"
+							],
+							"query": [
+								{
+									"key": "fields",
+									"value": "name,url",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna quadro por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}?key={{APIkey}}&token={{APItoken}}&fields=name,url",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name,url"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edita quadro",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"name\": \"API Trello editado\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleta quadro",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listas",
+			"item": [
+				{
+					"name": "Cria lista",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"list_id\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pensando em fazer\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}&idBoard={{board_id}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Pensando em fazer",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "idBoard",
+									"value": "{{board_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria segunda lista",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"list_id2\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pensando\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Pensando em fazer",
+									"disabled": true
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna lista por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{list_id2}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{list_id2}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna listas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/lists?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"lists"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Arquiva lista",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"false\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/lists/{{list_id}}/closed?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"lists",
+								"{{list_id}}",
+								"closed"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cards",
+			"item": [
+				{
+					"name": "Cria card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"card_id\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Primeiro card\",\r\n    \"desc\": \"Card de teste criado via API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards?idList={{list_id}}&key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{list_id}}"
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria segundo card",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonResponse = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"card_id2\", jsonResponse.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Segundo card\",\r\n    \"desc\": \"Segundo card de teste criado via API\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards?idList={{list_id}}&key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "idList",
+									"value": "{{list_id}}"
+								},
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna cards",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/boards/{{board_id}}/cards?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"boards",
+								"{{board_id}}",
+								"cards"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name,desc,dateLastActivity",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna card por ID",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}&fields=name,desc,dateLastActivity",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								},
+								{
+									"key": "fields",
+									"value": "name,desc,dateLastActivity"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idList\": \"67ad34d616b529b9df16a812\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edita card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Card editado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui card",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api.trello.com/1/cards/{{card_id}}?key={{APIkey}}&token={{APItoken}}",
+							"protocol": "https",
+							"host": [
+								"api",
+								"trello",
+								"com"
+							],
+							"path": [
+								"1",
+								"cards",
+								"{{card_id}}"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "{{APIkey}}"
+								},
+								{
+									"key": "token",
+									"value": "{{APItoken}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "board_id",
+			"value": ""
+		},
+		{
+			"key": "board_id2",
+			"value": ""
+		},
+		{
+			"key": "list_id",
+			"value": ""
+		},
+		{
+			"key": "list_id2",
+			"value": ""
+		},
+		{
+			"key": "card_id2",
+			"value": ""
+		},
+		{
+			"key": "card_id",
+			"value": ""
+		}
+	]
+}
